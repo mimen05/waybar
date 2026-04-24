@@ -1,0 +1,137 @@
+* {
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 11px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: #c8c8c8;
+}
+
+/* All modules get pill shape */
+.modules-left > widget > *,
+.modules-center > widget > *,
+.modules-right > widget > * {
+    background: rgba(50, 50, 50, 0.85);
+    border-radius: 999px;
+    padding: 1px 10px;
+    margin: 0 2px;
+}
+
+/* Workspaces */
+#workspaces {
+    background: rgba(50, 50, 50, 0.85);
+    border-radius: 999px;
+    padding: 4px 10px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: #555555;
+    padding: 0 5px;
+    min-width: 0;
+    font-size: 11px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#workspaces button.active {
+    color: #9fbdde;
+    font-size: 15px;
+}
+
+#workspaces button.occupied {
+    color: #c8c8c8;
+}
+
+#workspaces button.empty {
+    color: #404040;
+}
+
+#workspaces button:hover {
+    background: transparent;
+    color: #9fbdde;
+}
+
+/* Clock */
+#clock {
+    color: #9fbdde;
+}
+
+/* CPU & Memory */
+#cpu {
+    color: #97bb98;
+}
+
+#memory {
+    color: #97bb98;
+}
+
+/* Backlight */
+#backlight {
+    color: #fefdbc;
+}
+
+/* Audio */
+#wireplumber {
+    color: #c8c8c8;
+}
+
+#wireplumber.muted {
+    color: #555555;
+}
+
+/* Bluetooth */
+#bluetooth {
+    color: #9fbdde;
+}
+
+#bluetooth.connected {
+    color: #9fbdde;
+}
+
+#bluetooth.disabled {
+    color: #555555;
+}
+
+/* Network */
+#network {
+    color: #6fbbbc;
+}
+
+#network.disconnected {
+    color: #be7472;
+}
+
+/* Battery */
+#battery {
+    color: #97bb98;
+}
+
+#battery.charging {
+    color: #97bb98;
+}
+
+#battery.warning:not(.charging) {
+    color: #fefdbc;
+}
+
+#battery.critical:not(.charging) {
+    color: #be7472;
+    animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+    to { color: #555555; }
+}
+
+/* Tray */
+#tray {
+    padding: 4px 10px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
