@@ -48,7 +48,8 @@
         "on-scroll-down": "hyprctl dispatch workspace r-1",
         "persistent-workspaces": {
             "*": 5
-        }
+        },
+	"window-count": true
     },
 
     "custom/cava": {

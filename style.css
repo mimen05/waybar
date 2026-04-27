@@ -129,6 +129,11 @@ tooltip label {
     min-width: 24px;
 }
 
+#workspaces button.empty {
+	color: @fg-dim;
+	opacity: 0.4;
+}
+
 #workspaces button.urgent {
     color: @red;
     background-color: rgba(172, 65, 66, 0.18);
