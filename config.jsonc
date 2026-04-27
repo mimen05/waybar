@@ -25,6 +25,7 @@
         "memory",
         "backlight",
         "pulseaudio",
+	"network",
         "bluetooth",
         "clock",
         "battery"
@@ -103,6 +104,19 @@
         "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
         "tooltip": true,
         "tooltip-format": "{desc}"
+    },
+
+    "network": {
+    "format-wifi": "wif {essid} {signalStrength}%",
+    "format-ethernet": "eth {ipaddr}",
+    "format-disconnected": "wif off",
+    "format-linked": "wif (no ip)",
+    "on-click": "nm-connection-editor",
+    "tooltip": true,
+    "tooltip-format-wifi": "{essid}\nSignal: {signalStrength}%\nFreq: {frequency}GHz\nIP: {ipaddr}",
+    "tooltip-format-ethernet": "{ifname}\nIP: {ipaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "interval": 5
     },
 
     "bluetooth": {

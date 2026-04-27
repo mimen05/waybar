@@ -74,6 +74,7 @@ tooltip label {
 #memory,
 #backlight,
 #pulseaudio,
+#network,
 #bluetooth,
 #clock,
 #battery {
@@ -194,6 +195,27 @@ tooltip label {
 
 #pulseaudio.muted {
     color: @fg-dim;
+}
+
+#network {
+    color: @fg-dim;
+}
+
+#network.wifi {
+    color: @cyan;
+}
+
+#network.ethernet {
+    color: @blue;
+}
+
+#network.disconnected {
+    color: rgba(80, 80, 80, 0.50);
+}
+
+#network:hover {
+    background-color: @bg-hover;
+    color: @fg;
 }
 
 #bluetooth {
