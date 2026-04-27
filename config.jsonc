@@ -1,87 +1,150 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 24,
-    "spacing": 6,
-    "margin-top": 6,
-    "margin-left": 10,
-    "margin-right": 10,
+    "height": 40,
+    "width": 0,
+    "spacing": 4,
+    "margin-top": 8,
+    "margin-left": 12,
+    "margin-right": 12,
+    "exclusive": true,
 
-    "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["cpu", "memory", "backlight", "wireplumber", "bluetooth", "network", "battery", "tray"],
+    "modules-left": [
+        "hyprland/window",
+        "hyprland/workspaces",
+        "custom/cava"
+    ],
 
-    "hyprland/workspaces": {
-        "format": "●",
-        "format-icons": {
-            "active": "●",
-            "empty": "○",
-            "default": "●"
-        },
-        "persistent-workspaces": {
-            "*": 5
-        },
-        "on-scroll-up": "hyprctl dispatch workspace e+1",
-        "on-scroll-down": "hyprctl dispatch workspace e-1"
-    },
+    "modules-center": [
+        "mpris"
+    ],
 
-    "clock": {
-        "format": "{:%a %d %b   %H:%M}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-    },
+    "modules-right": [
+        "cpu",
+        "temperature",
+        "memory",
+        "backlight",
+        "pulseaudio",
+        "bluetooth",
+        "clock",
+        "battery"
+    ],
 
-    "cpu": {
-        "format": "cpu: {usage}%",
-        "interval": 2,
-        "tooltip": false
-    },
-
-    "memory": {
-        "format": "ram: {used:0.1f}G",
-        "interval": 2,
-        "tooltip": false
-    },
-
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"]
-    },
-
-    "wireplumber": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰝟 muted",
-        "format-icons": ["󰕿", "󰖀", "󰕾"]
-    },
-
-    "bluetooth": {
-        "format": "󰂯 {status}",
-        "format-connected": "󰂱 {device_alias}",
-        "format-connected-battery": "󰂱 {device_alias} {device_battery_percent}%",
-        "tooltip-format-connected": "{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}",
-        "on-click": "blueman-manager"
-    },
-
-    "network": {
-        "format-wifi": "󰤨 {essid} {signalStrength}%",
-        "format-ethernet": "󰈀 {ipaddr}",
-        "format-disconnected": "󰤭 disconnected",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}",
-        "interval": 5
-    },
-
-    "battery": {
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": "󰚥 {capacity}%",
-        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "states": {
-            "warning": 30,
-            "critical": 15
+    "hyprland/window": {
+        "format": "▪ {}",
+        "max-length": 40,
+        "separate-outputs": true,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "ff: $1",
+            "(.*) — Brave": "br: $1",
+            "kitty": "kitty"
         }
     },
 
-    "tray": {
-        "spacing": 8
+    "hyprland/workspaces": {
+        "format": "{id}",
+        "on-scroll-up": "hyprctl dispatch workspace r+1",
+        "on-scroll-down": "hyprctl dispatch workspace r-1",
+        "persistent-workspaces": {
+            "*": 5
+        }
+    },
+
+    "custom/cava": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/cava.sh"
+    },
+
+    "mpris": {
+        "format": "▶ {title} — {artist}",
+        "format-paused": "⏸ {title} — {artist}",
+        "format-stopped": "",
+        "max-length": 60,
+        "tooltip": true,
+        "tooltip-format": "{title}\n{artist}\n{album}"
+    },
+
+    "cpu": {
+        "format": "cpu {usage}%",
+        "interval": 2,
+        "tooltip": true,
+        "tooltip-format": "CPU: {usage}%\nLoad: {load}"
+    },
+
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+        "critical-threshold": 85,
+        "format": "tmp {temperatureC}°C",
+        "format-critical": "tmp {temperatureC}°C",
+        "tooltip": true,
+        "interval": 2
+    },
+
+    "memory": {
+        "format": "ram {used:.1f}G",
+        "tooltip": true,
+        "tooltip-format": "RAM: {used:.1f}G / {total:.1f}G\nSwap: {swapUsed:.1f}G / {swapTotal:.1f}G",
+        "interval": 3
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "brt {percent}%",
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "tooltip": false
+    },
+
+    "pulseaudio": {
+        "format": "vol {volume}%",
+        "format-muted": "vol muted",
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+        "tooltip": true,
+        "tooltip-format": "{desc}"
+    },
+
+    "bluetooth": {
+        "format": "bt {status}",
+        "format-connected": "bt {device_alias}",
+        "format-connected-battery": "bt {device_alias} {device_battery_percentage}%",
+        "on-click": "blueman-manager",
+        "tooltip": true,
+        "tooltip-format": "{controller_alias}\n{num_connections} connected\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias} ({device_battery_percentage}%)"
+    },
+
+    "clock": {
+        "format": "⏱ {:%H:%M}",
+        "format-alt": "⏱ {:%A, %d %B %Y}",
+        "tooltip": true,
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#e5b566'><b>{}</b></span>",
+                "days":     "<span color='#d0d0d0'><b>{}</b></span>",
+                "weeks":    "<span color='#7dd5cf'><b>W{}</b></span>",
+                "weekdays": "<span color='#6c99ba'><b>{}</b></span>",
+                "today":    "<span color='#ac4142'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "bat {capacity}%",
+        "format-charging": "chr {capacity}%",
+        "format-plugged": "plg {capacity}%",
+        "tooltip": true,
+        "tooltip-format": "{timeTo}\nCycles: {cycles}\nHealth: {health}%"
     }
 }
